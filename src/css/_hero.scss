@@ -1,0 +1,198 @@
+.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  padding: 3rem 6rem;
+  gap: 4rem;
+  background: #21283a;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 30%; // solo cubre la parte superior
+    background: radial-gradient(
+        circle at 25% 15%,
+        rgba(128, 0, 128, 0.6),
+        transparent 60%
+      ),
+      radial-gradient(
+        circle at 75% 20%,
+        rgba(147, 112, 219, 0.55),
+        transparent 55%
+      ),
+      radial-gradient(circle at 50% 25%, rgba(255, 0, 0, 0.5), transparent 60%);
+    filter: blur(100px);
+    opacity: 0.8;
+    z-index: 0;
+    pointer-events: none;
+    transform: scale(1);
+    animation: pulse 5s ease-in-out infinite;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.65;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.85;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.65;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.85;
+  }
+}
+
+.particles {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+
+  .particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(255, 186, 57, 0.8);
+    border-radius: 50%;
+    animation: float 18s infinite linear;
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(100vh) translateX(0px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) translateX(50px);
+    opacity: 0;
+  }
+}
+
+/* ===== HERO: flujo y ritmo ===== */
+.hero-text,
+.hero-image {
+  position: relative;
+  z-index: 1;
+}
+
+/* Títulos: contraste + brillo */
+h1 {
+  margin: 0 0;
+  text-rendering: optimizeLegibility;
+}
+
+/* Párrafo introductorio */
+.hero-text p {
+  margin-top: 2rem;
+  max-width: 500px;
+  font: 1.1rem/1.6 var(--font-body);
+}
+
+/* Mote dorado en movimiento */
+.highlight {
+  background: linear-gradient(
+    45deg,
+    var(--main-color) 0%,
+    #c7903e 20%,
+    #ffd86f 40%,
+    var(--main-color) 60%,
+    #c7903e 80%,
+    var(--main-color) 100%
+  );
+  background-size: 400% 400%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+  animation: gradientMove 8s ease-in-out infinite;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 50% 100%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  75% {
+    background-position: 50% 0%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Subtítulo: aire sutil */
+.subtitle {
+  margin-bottom: 2rem;
+  font: 300 1.8rem/1.25;
+  letter-spacing: 0.5px;
+  color: var(--text-color-sub);
+}
+
+/* Imagen: círculo con eco */
+.hero-image {
+  flex-shrink: 0;
+}
+
+.hero-image img {
+  width: 320px;
+  height: 320px;
+  max-width: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #fac76a;
+  transition: transform 0.3s ease;
+}
+
+.hero-image img:hover {
+  transform: scale(1.05);
+}
+
+/* ----- Puntos de quiebre ----- */
+@media (max-width: 768px) {
+  #hero {
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem;
+    text-align: center;
+  }
+  h1 {
+    font-size: 2.5rem;
+  }
+  .subtitle {
+    font-size: 1.4rem;
+  }
+  .hero-image img {
+    width: 250px;
+    height: 250px;
+  }
+}

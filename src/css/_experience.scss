@@ -1,0 +1,14 @@
+.experience {
+  padding: 1rem 2rem 1rem 2rem;
+  border-radius: 30px;
+
+  justify-self: center;
+  width: 50%;
+
+  p {
+    color: var(--text-color);
+    span {
+      color: var(--main-color);
+    }
+  }
+}

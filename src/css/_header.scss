@@ -1,0 +1,72 @@
+/* -------------  HEADER  ------------- */
+.header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4.0625rem;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.5rem;
+
+  background: rgba(0,0,0,.1);
+  backdrop-filter: blur(5px);
+  border-radius: 0 0 .75rem .75rem;
+  transition: background .4s ease;
+}
+
+/* -------------  NAV  ------------- */
+.header ul{
+  display: flex;
+  gap: 2.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.header li{
+  position: relative;
+}
+
+/* -------------  LINKS  ------------- */
+.header a{
+  position: relative;
+  color: rgb(175,175,175);
+  font-size: .875rem;
+  font-weight: 500;
+  letter-spacing: .05em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color .3s ease;
+}
+
+/* hover line */
+.header a::after{
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -.4rem;
+  width: 0;
+  height: 2px;
+  background: white;
+  transition: width .3s ease;
+}
+
+/* hover & focus states */
+.header a:hover,
+.header a:focus-visible{
+  color: white;
+  outline: none;
+}
+
+.header a:hover::after,
+.header a:focus-visible::after{
+  width: 100%;
+}
+
+/* -------------  SCROLLED  ------------- */
+body.scrolled .header{
+  background: rgba(0,0,0,.55);
+}

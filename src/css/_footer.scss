@@ -1,0 +1,30 @@
+.footer {
+  margin-top: 50px;
+  color: white;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4.0625rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.5rem;
+
+  background: rgba(0, 0, 0, 0.1); // fondo semi-transparente
+  backdrop-filter: blur(5px); // desenfoque detrás del footer
+  -webkit-backdrop-filter: blur(5px); // compatibilidad Safari
+  transition: background 0.4s ease;
+
+  ul {
+    display: flex;
+    gap: 2.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      position: relative;
+    }
+  }
+}

@@ -1,0 +1,19 @@
+$lexend:  'Lexend Variable', sans-serif;
+
+$black: #000000;
+$white: #ddd;
+$gray: #afafaf;
+$yellow: rgb(232, 187, 102);
+$bluebg: rgb(33, 40, 58);
+$blue: rgb(51, 63, 92);
+
+:root {
+  --text-color: #{$white};
+  --text-color-sub: #{$gray};
+  --bg-color: #{$bluebg};
+  --main-color: #{$yellow};
+  --alt-color: #{$blue};
+  --main-font: #{$lexend};
+  --font-size: clamp(6px, 0.83333333333vw, 24px);
+  --font-size-mobile: clamp(8px, 4.10256410256vw, 36px);
+}

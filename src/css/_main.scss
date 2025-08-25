@@ -1,0 +1,28 @@
+body {
+  font-family: var(--main-font);
+  gap: 1;
+  background: #21283a;
+  
+}
+
+p {
+  color: var(--text-color);
+}
+
+h1 {
+  font-size: 4rem;
+  color: var(--main-color);
+}
+
+h3 {
+  font-size: 2rem;
+  color: var(--main-color);
+
+  svg {
+    position: relative; 
+    top: 0.2rem; 
+  }
+}
+
+
+

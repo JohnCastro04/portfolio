@@ -1,0 +1,72 @@
+/* Custom Scrollbar Styles - Adapted to #21283a and #fac76a color scheme */
+
+/* Webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #21283a;
+  border-radius: 10px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #fac76a 0%, #f4d03f 50%, #fac76a 100%);
+  border-radius: 10px;
+  border: 2px solid #21283a;
+  transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #f4d03f 0%, #fac76a 50%, #f4d03f 100%);
+  box-shadow: 0 0 10px rgba(250, 199, 106, 0.5);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #fac76a;
+}
+
+::-webkit-scrollbar-corner {
+  background: #21283a;
+}
+
+/* Firefox */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #fac76a #21283a;
+}
+
+/* Enhanced scrollbar for better visibility */
+body {
+  scrollbar-width: thin;
+  scrollbar-color: #fac76a #21283a;
+}
+
+/* Custom scrollbar for specific containers */
+.scrollable-container {
+  scrollbar-width: thin;
+  scrollbar-color: #fac76a #21283a;
+}
+
+.scrollable-container::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scrollable-container::-webkit-scrollbar-track {
+  background: rgba(33, 40, 58, 0.8);
+  border-radius: 8px;
+}
+
+.scrollable-container::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #fac76a 0%, #f4d03f 100%);
+  border-radius: 8px;
+  border: 1px solid rgba(33, 40, 58, 0.5);
+}
+
+.scrollable-container::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #f4d03f 0%, #fac76a 100%);
+  box-shadow: 0 0 8px rgba(250, 199, 106, 0.4);
+}

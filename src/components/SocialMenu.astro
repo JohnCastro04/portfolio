@@ -1,0 +1,171 @@
+---
+import Github from "../components/icons/Github.astro";
+import CvDownload from "../components/icons/CvDownload.astro";
+import MailIcon from "../components/icons/MailIcon.astro";
+import LinkedinIcon from "../components/icons/LinkedinIcon.astro";
+
+// SocialMenu.astro
+export interface Props {
+  className?: string;
+}
+
+const { className } = Astro.props;
+
+const socialLinks = [
+  {
+    name: "GitHub",
+    url: "https://github.com/JohnCastro04",
+    icon: "github",
+    label: "Ver perfil de GitHub",
+  },
+  {
+    name: "LinkedIn",
+    url: "https://www.linkedin.com/in/johncastrod",
+    icon: "linkedin",
+    label: "Conectar en LinkedIn",
+  },
+  {
+    name: "Email",
+    url: "mailto:johncastrod04@gmail.com",
+    icon: "email",
+    label: "Enviar correo",
+  },
+  {
+    name: "CV",
+    url: "/cv.pdf",
+    icon: "cv",
+    label: "Descargar CV",
+    download: true,
+  },
+];
+
+const iconComponents = {
+  github: Github,
+  linkedin: LinkedinIcon,
+  email: MailIcon,
+  cv: CvDownload,
+};
+---
+
+<div class={`social-menu ${className || ""}`}>
+  <ul class="social-list">
+    {
+      socialLinks.map((link) => {
+        const IconComponent = iconComponents[link.icon as keyof typeof iconComponents];
+        return (
+          <li class="social-item">
+            <a
+              href={link.url}
+              target={
+                link.name !== "Email" && !link.download ? "_blank" : undefined
+              }
+              rel={
+                link.name !== "Email" && !link.download
+                  ? "noopener noreferrer"
+                  : undefined
+              }
+              download={link.download}
+              class="social-link"
+              aria-label={link.label}
+            >
+              <IconComponent 
+                class="social-icon" 
+                color="var(--main-color)" 
+                size={22} 
+              />
+              <span class="tooltip">{link.label}</span>
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</div>
+
+<style>
+  .social-menu {
+    position: fixed;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+  }
+
+  .social-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    list-style: none;
+    margin: 0;
+    padding: 1.5rem;
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0 0 0.75rem 0.75rem;
+    border-radius: 50px;
+  }
+
+  .social-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    color: #333;
+    background: var(--alt-color);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .social-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .social-link:hover .tooltip {
+    opacity: 1;
+    transform: translateX(-10px);
+  }
+
+  .social-icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .tooltip {
+    position: absolute;
+    right: 100%;
+    top: 20%;
+    transform: translateY(-50%) translateX(-5px);
+    background: var(--alt-color);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    margin-right: 10px;
+  }
+
+  .tooltip::after {
+    content: "";
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 5px solid transparent;
+    border-left-color: var(--alt-color);
+  }
+
+  /* Responsive - ocultar en móvil */
+  @media (max-width: 768px) {
+    .social-menu {
+      display: none;
+    }
+  }
+</style>

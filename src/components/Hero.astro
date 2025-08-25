@@ -1,0 +1,26 @@
+---
+import JohnImage from "../assets/johnImage.webp";
+---
+
+<section id="inicio" class="hero">
+  <div class="particles" id="particles"></div>
+
+  <div class="hero-text">
+    <h1 class="highlight">John Castro</h1>
+    <h2 class="subtitle">Desarrollador Web Fullstack</h2>
+    <p>
+      Apasionado por la tecnología, disfruto aprender constantemente y me motiva
+      enfrentar cada reto con dedicación y enfoque para crecer como profesional.
+    </p>
+  </div>
+
+  <div class="hero-image">
+    <img
+      src={JohnImage.src}
+      alt="John Castro"
+      fetchpriority="high"
+    />
+  </div>
+</section>
+
+<script src="/src/scripts/particles.js" defer></script>
