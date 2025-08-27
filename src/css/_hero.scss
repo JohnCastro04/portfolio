@@ -101,38 +101,31 @@ h1 {
 }
 
 .highlight {
+  --main-color: #e8bb66;
   background: linear-gradient(
-    45deg,
-    var(--main-color) 0%,
-    #c7903e 20%,
-    #ffd86f 40%,
-    var(--main-color) 60%,
-    #c7903e 80%,
-    var(--main-color) 100%
+    to right,
+    #8b5a1e 0%,
+    var(--main-color) 20%, 
+    #ffd86f 40%,     
+    #fff2b0 50%,     
+    #ffd86f 60%,
+    var(--main-color) 80%,
+    #8b5a1e 100%
   );
-  background-size: 400% 400%;
+  background-size: 300% 300%;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-weight: 800;
-  animation: gradientMove 8s ease-in-out infinite;
+  animation: waveFlow 6s linear infinite;
 }
 
-@keyframes gradientMove {
+@keyframes waveFlow {
   0% {
     background-position: 0% 50%;
   }
-  25% {
-    background-position: 50% 100%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  75% {
-    background-position: 50% 0%;
-  }
   100% {
-    background-position: 0% 50%;
+    background-position: 200% 50%;
   }
 }
 
@@ -161,54 +154,52 @@ h1 {
   transform: scale(1.05);
 }
 
-
 /* ----- Social ----- */
+.hero-actions {
+  display: none;
+}
+
+/* Mostrar solo en móvil */
+@media (max-width: 768px) {
+  .hero-actions.mobile-only {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    justify-content: center;
+  }
+
+  .action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: var(--alt-color);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Asegurar que los botones se oculten en escritorio */
+@media (max-width: 769px) {
   .hero-actions {
     display: none;
   }
-
-  /* Mostrar solo en móvil */
-  @media (max-width: 768px) {
-    .hero-actions.mobile-only {
-      display: flex;
-      gap: 1rem;
-      margin-top: 2rem;
-      justify-content: center;
-    }
-
-    .action-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 50px;
-      height: 50px;
-      background: var(--alt-color);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 50%;
-      color: #fff;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
-  }
-
-  /* Asegurar que los botones se oculten en escritorio */
-  @media (max-width: 769px) {
-    .hero-actions {
-      display: none;
-    }
-  }
-
+}
 
 /* ===============  RESPONSIVE  =============== */
 @media (max-width: 768px) {
-  .hero {           
+  .hero {
     flex-direction: column;
     gap: 2rem;
     padding: 2rem;
     text-align: center;
-    min-height: auto;      
+    min-height: auto;
   }
 
   .hero-image {
@@ -223,7 +214,7 @@ h1 {
   }
   .hero-image img {
     margin-top: 3rem;
-    width: 220px;           
+    width: 220px;
     height: 220px;
   }
 }
