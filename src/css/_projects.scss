@@ -57,13 +57,7 @@ $transition-fast:   all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   height: auto;         // antes: 100%, ahora se adapta al contenido
   box-sizing: border-box;
 
-  &:hover {
-    @include hover-lift();
-    border-color: rgba(255, 255, 255, 0.2);
-    box-shadow:
-      0 12px 40px rgba(0, 0, 0, 0.15),
-      0 8px 25px color-mix(in srgb, var(--main-color) 25%, transparent);
-  }
+
 
   // Efecto de borde brillante al hover
   &::before {
