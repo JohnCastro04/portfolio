@@ -1,18 +1,23 @@
 .experience {
-  padding: 1rem 2rem 1rem 2rem;
+  padding: 2rem 1rem;
+  width: 100%;
+  color: var(--text-color);
+  max-width: 1200px;
+  margin: 0 auto;
   border-radius: 30px;
-
-  justify-self: center;
-  width: 50%;
-
-  p {
-    color: var(--text-color);
-    span {
-      color: var(--main-color);
-    }
-  }
-
+  box-sizing: border-box;
   @media (max-width: 768px) {
     width: 80%;
   }
+  .section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  color: var(--text-color);
 }
+}
+
+

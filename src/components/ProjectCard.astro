@@ -35,10 +35,23 @@ const techIcons = {
   tailwind: () => import("../components/icons/TailwindIcon.astro"),
   typescript: () => import("../components/icons/TypeScriptIcon.astro"),
   javascript: () => import("../components/icons/JavaScriptIcon.astro"),
-  css: () => import("../components/icons/CSSIcon.astro"),
-  html: () => import("../components/icons/HTMLIcon.astro"),
-  nodejs: () => import("../components/icons/NodeIcon.astro"),
+  css3: () => import("../components/icons/CSSIcon.astro"),
+  html5: () => import("../components/icons/HTML5Icon.astro"),
+  node: () => import("../components/icons/NodeIcon.astro"),
   sass: () => import("../components/icons/SassIcon.astro"),
+};
+
+// Colores oficiales por tecnología
+const techColors: Record<string, string> = {
+  astro:   "#0F172A",     // Azul carbón profundo
+  react:   "#111827",     // Gris azulado casi negro
+  tailwind:"#1E293B",     // Azul oscuro slate
+  typescript:"#0D1117",   // GitHub dark
+  javascript:"#141414",   // Negro suave
+  css3:     "#0A0A0B",     // Negro casi puro
+  html5:   "#1A1A1A",     // Gris muy oscuro
+  node:  "#0D1F17",     // Verde bosque nocturno
+  sass:    "#1A0A1E",     // Violeta oscuro
 };
 
 const statusConfig = {
@@ -100,7 +113,6 @@ const currentStatus = statusConfig[status] || {
   <div class="project-content">
     <header class="project-header">
       <h3 class="project-title">{title}</h3>
-      <!-- Badge dinámico -->
       <span
         class="status-badge"
         style={`--status-color: ${currentStatus.color}; --status-bg: ${currentStatus.bgColor}`}
@@ -120,10 +132,11 @@ const currentStatus = statusConfig[status] || {
             const IconComponent = techIcons[iconName]
               ? (await techIcons[iconName]()).default
               : null;
+            const color = techColors[iconName] || "var(--main-color)";
 
             return (
-              <span class="tech-tag" title={tech}>
-                {IconComponent && <IconComponent size={24} stroke={1}/>}
+              <span class="tech-tag" title={tech} style={`--tech-color: ${color}`}>
+                {IconComponent && <IconComponent size={24} stroke={1} />}
                 <span>{tech}</span>
               </span>
             );
@@ -142,7 +155,7 @@ const currentStatus = statusConfig[status] || {
             class="link-button primary"
             aria-label={`Ver código de ${title}`}
           >
-            <GithubIcon size={18} />
+            <GithubIcon size={20} />
             <span>Código</span>
           </a>
         )
@@ -156,7 +169,7 @@ const currentStatus = statusConfig[status] || {
             class="link-button secondary"
             aria-label={`Ver demo de ${title}`}
           >
-            <ExternalLinkIcon size={18} />
+            <ExternalLinkIcon size={20} />
             <span>Demo</span>
           </a>
         )
@@ -179,7 +192,7 @@ const currentStatus = statusConfig[status] || {
         toggleBtns.forEach((b) => b.classList.remove("active"));
         desktopView?.classList.remove("active");
         mobileView?.classList.remove("active");
-        
+
         btn.classList.add("active");
 
         if (view === "desktop") {

@@ -1,24 +1,11 @@
-.about {
+.skills {
   padding: 2rem 1rem;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   border-radius: 30px;
   box-sizing: border-box;
-
-  p {
-    color: var(--text-color);
-  }
-
-  span {
-    color: var(--main-color);
-  }
-
   @media (max-width: 768px) {
     width: 80%;
   }
-}
-
-#sobre-mi {
-  scroll-margin-top: 100px;
 }

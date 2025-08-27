@@ -19,7 +19,7 @@ h1 {
 
 hr {
   margin: 7rem auto;
-  width: 60%;
+  width: 80%;
   border-color: var(--main-color);
   @media (max-width: 768px) {
     width: 80%;
@@ -36,13 +36,6 @@ h3 {
   }
 }
 
-// Responsive
-
-@media (max-width: 768px) {
-  .about, .experience, .projects {
-    width: 90%;
-  }
-}
 
 
 
