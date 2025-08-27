@@ -1,0 +1,38 @@
+---
+import CodeIcon from "../components/icons/CodeIcon.astro";
+import ProjectCard from "./ProjectCard.astro";
+---
+
+<section id="proyectos" class="projects-container">
+  <h3>
+    <CodeIcon color="var(--main-color)" size={40} />
+    Proyectos
+  </h3>
+
+  <div class="projects-grid">
+    <ProjectCard
+      mobileImage="images/projects/smitle-mobile.webp"
+      desktopImage="images/projects/smitle-desktop.webp"
+      title="Smitle 2"
+      description="Aplicación web en la que jugar diariamente desafíos relacionados a Smite 2."
+      status="finalizado"
+      repository="https://github.com/tu-usuario/ecommerce-app"
+      demo="https://tu-ecommerce.vercel.app"
+      technologies={["Astro", "Tailwind", "JavaScript"]}
+    />
+    <ProjectCard
+      mobileImage="/src/assets/johnImage.webp"
+      desktopImage="public\images\placeholder-desktop.jpg"
+      title="Smitle 2"
+      description="Aplicación web en la que jugar diariamente desafíos relacionados a Smite 2."
+      status="en desarrollo"
+      repository="https://github.com/tu-usuario/ecommerce-app"
+      demo="https://tu-ecommerce.vercel.app"
+      technologies={["Astro", "Tailwind", "JavaScript"]}
+    />
+  </div>
+</section>
+
+<style>
+
+</style>

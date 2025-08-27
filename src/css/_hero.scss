@@ -1,3 +1,4 @@
+/* ===============  HERO (desktop)  =============== */
 .hero {
   display: flex;
   justify-content: center;
@@ -8,44 +9,32 @@
   background: #21283a;
   position: relative;
   overflow: hidden;
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 30%; // solo cubre la parte superior
-    background: radial-gradient(
-        circle at 25% 15%,
-        rgba(128, 0, 128, 0.6),
-        transparent 60%
-      ),
-      radial-gradient(
-        circle at 75% 20%,
-        rgba(147, 112, 219, 0.55),
-        transparent 55%
-      ),
-      radial-gradient(circle at 50% 25%, rgba(255, 0, 0, 0.5), transparent 60%);
-    filter: blur(100px);
-    opacity: 0.8;
-    z-index: 0;
-    pointer-events: none;
-    transform: scale(1);
-    animation: pulse 5s ease-in-out infinite;
-  }
 }
 
-@keyframes pulse {
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 0.65;
-  }
-  50% {
-    transform: scale(1.2);
-    opacity: 0.85;
-  }
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 30%;
+  background: radial-gradient(
+      circle at 25% 15%,
+      rgba(128, 0, 128, 0.6),
+      transparent 60%
+    ),
+    radial-gradient(
+      circle at 75% 20%,
+      rgba(147, 112, 219, 0.55),
+      transparent 55%
+    ),
+    radial-gradient(circle at 50% 25%, rgba(255, 0, 0, 0.5), transparent 60%);
+  filter: blur(100px);
+  opacity: 0.8;
+  z-index: 0;
+  pointer-events: none;
+  transform: scale(1);
+  animation: pulse 5s ease-in-out infinite;
 }
 
 @keyframes pulse {
@@ -65,15 +54,15 @@
   inset: 0;
   z-index: 0;
   pointer-events: none;
+}
 
-  .particle {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background: rgba(255, 186, 57, 0.8);
-    border-radius: 50%;
-    animation: float 18s infinite linear;
-  }
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 186, 57, 0.8);
+  border-radius: 50%;
+  animation: float 18s infinite linear;
 }
 
 @keyframes float {
@@ -93,27 +82,24 @@
   }
 }
 
-/* ===== HERO: flujo y ritmo ===== */
+/* ----- Contenido ----- */
 .hero-text,
 .hero-image {
   position: relative;
   z-index: 1;
 }
 
-/* Títulos: contraste + brillo */
 h1 {
-  margin: 0 0;
+  margin: 0;
   text-rendering: optimizeLegibility;
 }
 
-/* Párrafo introductorio */
 .hero-text p {
   margin-top: 2rem;
   max-width: 500px;
   font: 1.1rem/1.6 var(--font-body);
 }
 
-/* Mote dorado en movimiento */
 .highlight {
   background: linear-gradient(
     45deg,
@@ -150,7 +136,6 @@ h1 {
   }
 }
 
-/* Subtítulo: aire sutil */
 .subtitle {
   margin-bottom: 2rem;
   font: 300 1.8rem/1.25;
@@ -158,7 +143,6 @@ h1 {
   color: var(--text-color-sub);
 }
 
-/* Imagen: círculo con eco */
 .hero-image {
   flex-shrink: 0;
 }
@@ -177,14 +161,60 @@ h1 {
   transform: scale(1.05);
 }
 
-/* ----- Puntos de quiebre ----- */
+
+/* ----- Social ----- */
+  .hero-actions {
+    display: none;
+  }
+
+  /* Mostrar solo en móvil */
+  @media (max-width: 768px) {
+    .hero-actions.mobile-only {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+      justify-content: center;
+    }
+
+    .action-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      background: var(--alt-color);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      color: #fff;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  /* Asegurar que los botones se oculten en escritorio */
+  @media (max-width: 769px) {
+    .hero-actions {
+      display: none;
+    }
+  }
+
+
+/* ===============  RESPONSIVE  =============== */
 @media (max-width: 768px) {
-  #hero {
+  .hero {           
     flex-direction: column;
     gap: 2rem;
     padding: 2rem;
     text-align: center;
+    min-height: auto;      
   }
+
+  .hero-image {
+    order: -1;
+  }
+
   h1 {
     font-size: 2.5rem;
   }
@@ -192,7 +222,8 @@ h1 {
     font-size: 1.4rem;
   }
   .hero-image img {
-    width: 250px;
-    height: 250px;
+    margin-top: 3rem;
+    width: 220px;           
+    height: 220px;
   }
 }

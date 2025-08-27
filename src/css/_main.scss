@@ -1,3 +1,6 @@
+html {
+  scroll-behavior: smooth;
+}
 body {
   font-family: var(--main-font);
   gap: 1;
@@ -14,13 +17,30 @@ h1 {
   color: var(--main-color);
 }
 
+hr {
+  margin: 7rem auto;
+  width: 60%;
+  border-color: var(--main-color);
+  @media (max-width: 768px) {
+    width: 80%;
+  }
+}
+
 h3 {
   font-size: 2rem;
   color: var(--main-color);
 
   svg {
     position: relative; 
-    top: 0.2rem; 
+    top: 0.5rem; 
+  }
+}
+
+// Responsive
+
+@media (max-width: 768px) {
+  .about, .experience, .projects {
+    width: 90%;
   }
 }
 

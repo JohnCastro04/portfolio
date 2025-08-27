@@ -1,0 +1,202 @@
+---
+import MobileIcon from "./icons/MobileIcon.astro";
+import DesktopIcon from "./icons/DesktopIcon.astro";
+import ExternalLinkIcon from "./icons/ExternalLinkIcon.astro";
+import GithubIcon from "./icons/Github.astro";
+import InProgress from "../assets/in-progress.webp";
+import Finished from "../assets/finished.webp";
+
+export interface Props {
+  mobileImage?: string;
+  desktopImage?: string;
+  title?: string;
+  description?: string;
+  status?: "en desarrollo" | "finalizado";
+  repository?: string;
+  demo?: string;
+  technologies?: string[];
+}
+
+const {
+  mobileImage = "/images/placeholder-mobile.jpg",
+  desktopImage = "/images/placeholder-desktop.jpg",
+  title = "Proyecto sin título",
+  description = "Descripción no disponible",
+  status = "en desarrollo",
+  repository,
+  demo,
+  technologies = [],
+} = Astro.props;
+
+// Mapeo de tecnologías a iconos
+const techIcons = {
+  astro: () => import("../components/icons/AstroIcon.astro"),
+  react: () => import("../components/icons/ReactIcon.astro"),
+  tailwind: () => import("../components/icons/TailwindIcon.astro"),
+  typescript: () => import("../components/icons/TypeScriptIcon.astro"),
+  javascript: () => import("../components/icons/JavaScriptIcon.astro"),
+  css: () => import("../components/icons/CSSIcon.astro"),
+  html: () => import("../components/icons/HTMLIcon.astro"),
+  nodejs: () => import("../components/icons/NodeIcon.astro"),
+  sass: () => import("../components/icons/SassIcon.astro"),
+};
+
+const statusConfig = {
+  "en desarrollo": {
+    color: "hsl(45, 95%, 65%)",
+    bgColor: "hsla(45, 95%, 65%, 0.12)",
+    label: "En Desarrollo",
+    icon: `<img src="${InProgress.src}" alt="En desarrollo" class="status-img" />`,
+  },
+  finalizado: {
+    color: "hsl(145, 70%, 55%)",
+    bgColor: "hsla(145, 70%, 55%, 0.12)",
+    label: "Finalizado",
+    icon: `<img src="${Finished.src}" alt="Finalizado" class="status-img" />`,
+  },
+};
+
+const currentStatus = statusConfig[status] || {
+  color: "var(--text-color-sub)",
+  bgColor: "rgba(255, 255, 255, 0.05)",
+  label: status,
+  icon: "📌",
+};
+---
+
+<article class="project-card" data-status={status}>
+  <!-- Botones de toggle -->
+  <div class="view-toggle">
+    <button
+      class="toggle-btn active"
+      data-view="desktop"
+      aria-label="Vista de escritorio"
+    >
+      <DesktopIcon size={16} />
+      <span>Escritorio</span>
+    </button>
+    <button class="toggle-btn" data-view="mobile" aria-label="Vista móvil">
+      <MobileIcon size={16} />
+      <span>Móvil</span>
+    </button>
+  </div>
+
+  <!-- Imágenes -->
+  <div class="project-image">
+    <div class="image-container desktop-view active">
+      <img
+        src={desktopImage || "/placeholder.svg"}
+        alt={`${title} - Vista de escritorio`}
+        loading="lazy"
+      />
+      <div class="image-overlay"></div>
+    </div>
+    <div class="image-container mobile-view">
+      <img src={mobileImage || "/placeholder.svg"} alt={`${title} - Vista móvil`} loading="lazy" />
+      <div class="image-overlay"></div>
+    </div>
+  </div>
+
+  <div class="project-content">
+    <header class="project-header">
+      <h3 class="project-title">{title}</h3>
+      <!-- Badge dinámico -->
+      <span
+        class="status-badge"
+        style={`--status-color: ${currentStatus.color}; --status-bg: ${currentStatus.bgColor}`}
+      >
+        <span class="status-icon" set:html={currentStatus.icon} />
+        {currentStatus.label}
+      </span>
+    </header>
+
+    <p class="project-description">{description}</p>
+
+    {
+      technologies.length > 0 && (
+        <div class="project-technologies">
+          {technologies.map(async (tech) => {
+            const iconName = tech.toLowerCase();
+            const IconComponent = techIcons[iconName]
+              ? (await techIcons[iconName]()).default
+              : null;
+
+            return (
+              <span class="tech-tag" title={tech}>
+                {IconComponent && <IconComponent size={24} stroke={1}/>}
+                <span>{tech}</span>
+              </span>
+            );
+          })}
+        </div>
+      )
+    }
+
+    <div class="project-links">
+      {
+        repository && (
+          <a
+            href={repository}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="link-button primary"
+            aria-label={`Ver código de ${title}`}
+          >
+            <GithubIcon size={18} />
+            <span>Código</span>
+          </a>
+        )
+      }
+      {
+        demo && (
+          <a
+            href={demo}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="link-button secondary"
+            aria-label={`Ver demo de ${title}`}
+          >
+            <ExternalLinkIcon size={18} />
+            <span>Demo</span>
+          </a>
+        )
+      }
+    </div>
+  </div>
+</article>
+
+<script>
+  // Toggle entre vistas
+  document.querySelectorAll(".project-card").forEach((card) => {
+    const toggleBtns = card.querySelectorAll(".toggle-btn");
+    const desktopView = card.querySelector(".desktop-view");
+    const mobileView = card.querySelector(".mobile-view");
+
+    toggleBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const view = btn.dataset.view;
+
+        toggleBtns.forEach((b) => b.classList.remove("active"));
+        desktopView?.classList.remove("active");
+        mobileView?.classList.remove("active");
+        
+        btn.classList.add("active");
+
+        if (view === "desktop") {
+          desktopView?.classList.add("active");
+        } else if (view === "mobile") {
+          mobileView?.classList.add("active");
+        }
+      });
+    });
+  });
+
+  // Manejo de errores en imágenes
+  document.querySelectorAll(".project-card img").forEach((img) => {
+    img.addEventListener("error", function () {
+      this.src = this.src.includes("mobile")
+        ? "/images/placeholder-mobile.jpg"
+        : "/images/placeholder-desktop.jpg";
+    });
+  });
+</script>

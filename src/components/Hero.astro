@@ -1,5 +1,10 @@
 ---
 import JohnImage from "../assets/johnImage.webp";
+
+import Github from "../components/icons/Github.astro";
+import CvDownload from "../components/icons/CvDownload.astro";
+import MailIcon from "../components/icons/MailIcon.astro";
+import LinkedinIcon from "../components/icons/LinkedinIcon.astro";
 ---
 
 <section id="inicio" class="hero">
@@ -12,6 +17,28 @@ import JohnImage from "../assets/johnImage.webp";
       Apasionado por la tecnología, disfruto aprender constantemente y me motiva
       enfrentar cada reto con dedicación y enfoque para crecer como profesional.
     </p>
+    <div class="hero-actions mobile-only">
+      <a href="https://linkedin.com" class="action-btn" aria-label="LinkedIn">
+        <LinkedinIcon color="var(--main-color)" size={26} />
+      </a>
+
+      <a href="https://github.com" class="action-btn" aria-label="GitHub">
+        <Github color="var(--main-color)" size={26} />
+      </a>
+
+      <a href="mailto:mail@example.com" class="action-btn" aria-label="Email">
+        <MailIcon color="var(--main-color)" size={26} />
+      </a>
+
+      <a
+        href="/cv.pdf"
+        download
+        class="action-btn primary"
+        aria-label="Descargar CV"
+      >
+        <CvDownload color="var(--main-color)" size={26} />
+      </a>
+    </div>
   </div>
 
   <div class="hero-image">
@@ -19,8 +46,13 @@ import JohnImage from "../assets/johnImage.webp";
       src={JohnImage.src}
       alt="John Castro"
       fetchpriority="high"
+      draggable="false"
     />
   </div>
 </section>
 
 <script src="/src/scripts/particles.js" defer></script>
+
+<style>
+
+</style>

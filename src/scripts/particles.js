@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("particles");
-  const totalParticles = 20; 
+  const totalParticles = 30; 
 
   for (let i = 0; i < totalParticles; i++) {
     const particle = document.createElement("div");

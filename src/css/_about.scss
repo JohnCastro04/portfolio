@@ -12,4 +12,12 @@
   span {
     color: var(--main-color);
   }
+
+  @media (max-width: 768px) {
+    width: 80%;
+  }
+}
+
+#sobre-mi {
+  scroll-margin-top: 100px; 
 }
