@@ -1,11 +1,151 @@
 ---
 import SkillAward from "../components/icons/SkillAward.astro";
+
+// Import all tech icons as components
+import AstroIcon from "../components/icons/tech/AstroIcon.astro";
+import ReactIcon from "../components/icons/tech/ReactIcon.astro";
+import TailwindIcon from "../components/icons/tech/TailwindIcon.astro";
+import BootstrapIcon from "../components/icons/tech/BootstrapIcon.astro";
+import LaravelIcon from "../components/icons/tech/LaravelIcon.astro";
+import JavaScriptIcon from "../components/icons/tech/JavaScriptIcon.astro";
+import TypeScriptIcon from "../components/icons/tech/TypeScriptIcon.astro";
+import PHPIcon from "../components/icons/tech/PHPIcon.astro";
+import HTML5Icon from "../components/icons/tech/HTML5Icon.astro";
+import CSSIcon from "../components/icons/tech/CSSIcon.astro";
+import MySQLIcon from "../components/icons/tech/MySQLIcon.astro";
+import VSCodeIcon from "../components/icons/tech/VSCodeIcon.astro";
+import GitIcon from "../components/icons/tech/GitIcon.astro";
+import GithubIcon from "../components/icons/tech/GithubIcon.astro";
+import BitBucketIcon from "../components/icons/tech/BitBucketIcon.astro";
+import VercelIcon from "../components/icons/tech/VercelIcon.astro";
+
+const skills = [
+  // Frameworks
+  { name: "Astro", key: "astro", category: "Framework" },
+  { name: "Laravel", key: "laravel", category: "Framework Backend" },
+
+  // Librerías
+  { name: "React", key: "react", category: "Library" },
+  { name: "Tailwind CSS", key: "tailwind", category: "Library" },
+  { name: "Bootstrap", key: "bootstrap", category: "Library" },
+
+  // Lenguajes
+  { name: "JavaScript", key: "javascript", category: "Lenguaje" },
+  { name: "TypeScript", key: "typescript", category: "Lenguaje" },
+  { name: "PHP", key: "php", category: "Lenguaje" },
+  { name: "HTML5", key: "html5", category: "Lenguaje" },
+  { name: "CSS3", key: "css3", category: "Lenguaje" },
+
+  // Bases de Datos
+  { name: "MySQL", key: "mysql", category: "Base de Datos" },
+
+  // Herramientas
+  { name: "Visual Studio Code", key: "vscode", category: "Herramienta" },
+  { name: "Git", key: "git", category: "Herramienta" },
+  { name: "GitHub", key: "github", category: "Herramienta" },
+  { name: "BitBucket", key: "bitbucket", category: "Herramienta" },
+  { name: "Vercel", key: "vercel", category: "Herramienta" },
+];
+
+const categories = [
+  { key: "Todos", icon: "🎯", label: "Todos" },
+  { key: "Framework", icon: "⚡", label: "Frameworks" },
+  { key: "Framework Backend", icon: "⚙️", label: "Frameworks Backend" },
+  { key: "Library", icon: "📚", label: "Librerías" },
+  { key: "Lenguaje", icon: "💻", label: "Lenguajes" },
+  { key: "Base de Datos", icon: "🗄️", label: "Bases de Datos" },
+  { key: "Herramienta", icon: "🛠️", label: "Herramientas" },
+];
+
+const iconComponents = {
+  astro: AstroIcon,
+  react: ReactIcon,
+  tailwind: TailwindIcon,
+  bootstrap: BootstrapIcon,
+  laravel: LaravelIcon,
+  javascript: JavaScriptIcon,
+  typescript: TypeScriptIcon,
+  php: PHPIcon,
+  html5: HTML5Icon,
+  css3: CSSIcon,
+  mysql: MySQLIcon,
+  vscode: VSCodeIcon,
+  git: GitIcon,
+  github: GithubIcon,
+  bitbucket: BitBucketIcon,
+  vercel: VercelIcon,
+};
+
+const itemsPerPage = 8;
+const totalPages = Math.ceil(skills.length / itemsPerPage);
 ---
 
-<section id="habilidades">
-  <div class="skills">
-    <h3>
-      <SkillAward color="var(--main-color)" size={40} /> Habilidades
-    </h3>
+<section class="skills" id="habilidades">
+  <h3>
+    <SkillAward color="var(--main-color)" size={40} />Habilidades Técnicas
+  </h3>
+
+  <div class="filters-container">
+    <div class="filters">
+      {
+        categories.map((cat) => (
+          <button
+            data-filter={cat.key}
+            class={`filter-btn ${cat.key === "Todos" ? "active" : ""}`}
+          >
+            <span class="filter-icon">{cat.icon}</span>
+            {cat.label}
+          </button>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="skills-section">
+    <div class="skills-grid">
+      {
+        skills.map((skill) => {
+          const IconComponent = iconComponents[skill.key];
+          return (
+            <div class="skill-card" data-category={skill.category}>
+              <div class="skill-logo">
+                               {" "}
+                {IconComponent ? (
+                  <IconComponent size={50} />
+                ) : (
+                  <div class="placeholder-icon">?</div>
+                )}
+              </div>
+              <div class="skill-info">
+                <span class="skill-name">{skill.name}</span>
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
   </div>
 </section>
+
+<script>
+  const filterBtns = document.querySelectorAll(".filter-btn");
+  const skillCards = document.querySelectorAll(".skill-card");
+  function filterSkills(category) {
+    skillCards.forEach((card) => {
+      const cardCategory = card.getAttribute("data-category");
+      if (category === "Todos" || cardCategory === category) {
+        card.style.display = "flex";
+      } else {
+        card.style.display = "none";
+      }
+    });
+  }
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      filterBtns.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      filterSkills(btn.dataset.filter);
+    });
+  });
+</script>
