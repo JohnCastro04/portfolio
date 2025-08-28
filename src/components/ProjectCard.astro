@@ -30,28 +30,28 @@ const {
 
 // Mapeo de tecnologías a iconos
 const techIcons = {
-  astro: () => import("../components/icons/AstroIcon.astro"),
-  react: () => import("../components/icons/ReactIcon.astro"),
-  tailwind: () => import("../components/icons/TailwindIcon.astro"),
-  typescript: () => import("../components/icons/TypeScriptIcon.astro"),
-  javascript: () => import("../components/icons/JavaScriptIcon.astro"),
-  css3: () => import("../components/icons/CSSIcon.astro"),
-  html5: () => import("../components/icons/HTML5Icon.astro"),
-  node: () => import("../components/icons/NodeIcon.astro"),
-  sass: () => import("../components/icons/SassIcon.astro"),
+  astro: () => import("../components/icons/tech/AstroIcon.astro"),
+  react: () => import("../components/icons/tech/ReactIcon.astro"),
+  tailwind: () => import("../components/icons/tech/TailwindIcon.astro"),
+  typescript: () => import("../components/icons/tech/TypeScriptIcon.astro"),
+  javascript: () => import("../components/icons/tech/JavaScriptIcon.astro"),
+  css3: () => import("../components/icons/tech/CSSIcon.astro"),
+  html5: () => import("../components/icons/tech/HTML5Icon.astro"),
+  node: () => import("../components/icons/tech/NodeIcon.astro"),
+  sass: () => import("../components/icons/tech/SassIcon.astro"),
 };
 
 // Colores oficiales por tecnología
 const techColors: Record<string, string> = {
-  astro:   "#0F172A",     // Azul carbón profundo
-  react:   "#111827",     // Gris azulado casi negro
-  tailwind:"#1E293B",     // Azul oscuro slate
-  typescript:"#0D1117",   // GitHub dark
-  javascript:"#141414",   // Negro suave
-  css3:     "#0A0A0B",     // Negro casi puro
-  html5:   "#1A1A1A",     // Gris muy oscuro
-  node:  "#0D1F17",     // Verde bosque nocturno
-  sass:    "#1A0A1E",     // Violeta oscuro
+  astro:       "#150426", // morado oscuro oficial del gradiente
+  react:       "#0B1C26", // azul muy oscuro que contrasta con el cyan
+  tailwind:    "#0F172A", // slate-900, deja resaltar el azul #06B6D4
+  typescript:  "#0D1117", // GitHub dark background, resalta el azul #3178C6
+  javascript:  "#1C1917", // marrón oscuro neutro, contrasta con #F7DF1E
+  css3:        "#0A1128", // azul noche que hace brillar el azul CSS
+  html5:       "#31100B", // marrón rojizo oscuro que realza el naranja HTML
+  node:        "#0B1D14", // verde oscuro profundo, resalta el verde Node
+  sass:        "#2A0E2E", // púrpura oscuro que contrasta con el rosa Sass
 };
 
 const statusConfig = {
@@ -136,7 +136,7 @@ const currentStatus = statusConfig[status] || {
 
             return (
               <span class="tech-tag" title={tech} style={`--tech-color: ${color}`}>
-                {IconComponent && <IconComponent size={24} stroke={1} />}
+                {IconComponent && <IconComponent size={20} />}
                 <span>{tech}</span>
               </span>
             );
