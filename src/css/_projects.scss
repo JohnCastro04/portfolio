@@ -99,6 +99,8 @@ $transition-fast:   all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 .toggle-btn {
   display: flex;
   align-items: center;
+  justify-content: center;
+  width: 50%;
   gap: 0.5rem;
   padding: 0.5rem 0.875rem;
   border: none;
