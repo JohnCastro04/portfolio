@@ -102,30 +102,33 @@ h1 {
 
 .highlight {
   --main-color: #e8bb66;
+  --shine-color: #fff2b0;
+  --dark-color: #8b5a1e;
+
   background: linear-gradient(
     to right,
-    #8b5a1e 0%,
-    var(--main-color) 20%, 
-    #ffd86f 40%,     
-    #fff2b0 50%,     
-    #ffd86f 60%,
-    var(--main-color) 80%,
-    #8b5a1e 100%
+    var(--dark-color) 0%,
+    var(--main-color) 25%,
+    var(--shine-color) 50%,
+    var(--main-color) 75%,
+    var(--dark-color) 100%
   );
-  background-size: 300% 300%;
+
+  background-size: 200% 100%;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-weight: 800;
-  animation: waveFlow 6s linear infinite;
+
+  animation: waveFlow 4s ease-in-out infinite;
 }
 
 @keyframes waveFlow {
   0% {
-    background-position: 0% 50%;
+    background-position: 200% 50%;
   }
   100% {
-    background-position: 200% 50%;
+    background-position: 0% 50%;
   }
 }
 

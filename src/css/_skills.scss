@@ -1,11 +1,9 @@
-
 $border-radius-lg: 20px;
 $border-radius-md: 16px;
 $border-radius-sm: 12px;
 $border-radius-xs: 8px;
 $transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 $transition-fast: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
 
 @mixin glass-effect($opacity: 0.08) {
   background: linear-gradient(
@@ -22,7 +20,6 @@ $transition-fast: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-
 %base-glass {
   @include glass-effect(0.1);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -38,7 +35,6 @@ $transition-fast: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     @include hover-lift(1, -3px);
   }
 }
-
 
 .skills {
   max-width: 1200px;
@@ -82,14 +78,23 @@ $transition-fast: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border-radius: 50px;
 
     @media (max-width: 768px) {
+      width: 90%; // Aumenta el ancho para usar más espacio en la tablet
+      justify-content: flex-start; // Alinea los botones a la izquierda
+      gap: 0.5rem; // Reduce la brecha entre los botones
       padding: 0.75rem;
       border-radius: $border-radius-md;
     }
+
     @media (max-width: 480px) {
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 1rem 0.5rem;
+      width: 100%; // Ocupa todo el ancho en móviles
+      flex-wrap: nowrap; // Evita que los botones salten a la siguiente línea
+      overflow-x: auto; // Habilita el desplazamiento horizontal
+      padding: 0.5rem; // Reduce el relleno
+      // Ocultar la barra de desplazamiento en navegadores WebKit
+      -webkit-overflow-scrolling: touch;
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
   }
 }
@@ -97,18 +102,27 @@ $transition-fast: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 // Cards de habilidades (responsive simplificado)
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); /* Aumentado el minmax */
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(140px, 1fr)
+  ); /* Aumentado el minmax */
   gap: 1.5rem;
   transition: $transition-smooth;
   width: 100%;
 
   @media (max-width: 768px) {
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Ajustado para tablets */
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(120px, 1fr)
+    ); /* Ajustado para tablets */
     gap: 1.25rem;
   }
 
   @media (max-width: 480px) {
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Ajustado para móviles */
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(100px, 1fr)
+    ); /* Ajustado para móviles */
     gap: 1rem;
   }
 }
@@ -120,14 +134,37 @@ $transition-fast: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1.5rem 0.75rem; /* Ajustado el padding para más espacio */
+  padding: 1.5rem 0.75rem;
   border-radius: $border-radius-sm;
   overflow: hidden;
   z-index: 1;
 
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background-color: #e8bb66;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    filter: blur(15px);
+    opacity: 0;
+    transition: all 0.4s ease-in-out;
+    z-index: -1;
+  }
+
   &:hover {
     border-color: var(--main-color);
     z-index: 10;
+
+    &::before {
+      width: 100px;
+      height: 100px;
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0.5;
+    }
   }
 
   &.hidden {
@@ -135,10 +172,10 @@ $transition-fast: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   @media (max-width: 768px) {
-    padding: 1.2rem 0.6rem; /* Ajustado el padding para tablets */
+    padding: 1.2rem 0.6rem;
   }
   @media (max-width: 480px) {
-    padding: 1rem 0.5rem; /* Ajustado el padding para móviles */
+    padding: 1rem 0.5rem;
   }
 }
 
@@ -146,6 +183,7 @@ $transition-fast: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 .filter-btn {
   @extend %base-interactive;
   display: flex;
+  flex-wrap: nowrap;
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1.25rem;
@@ -161,8 +199,8 @@ $transition-fast: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
   &.active {
     @include hover-lift(1, -3px);
-    background: var(--main-color);
-    color: white;
+    color: var(--main-color);
+    font-weight: 600;
     border-color: var(--main-color);
   }
 
@@ -170,17 +208,12 @@ $transition-fast: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     padding: 0.5rem 1rem;
     font-size: 0.875rem;
   }
-  @media (max-width: 480px) {
-    width: 100%;
-    max-width: 200px;
-    justify-content: center;
-  }
+
 }
 
 .filter-icon {
   font-size: 1rem;
 }
-
 
 .skill-logo {
   width: 80px; /* Tamaño aumentado */
@@ -214,7 +247,7 @@ $transition-fast: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .skill-name {
-  display:flex;
+  display: flex;
   font-weight: 600;
   color: var(--text-color);
   font-size: 0.95rem;

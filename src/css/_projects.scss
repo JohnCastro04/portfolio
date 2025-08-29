@@ -1,12 +1,12 @@
-// Variables globales
+/* Variables globales */
 $border-radius-lg: 20px;
 $border-radius-md: 16px;
 $border-radius-sm: 12px;
 $border-radius-xs: 8px;
 $transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-$transition-fast:   all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+$transition-fast: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-// Mixins
+/* Mixins */
 @mixin glass-effect($opacity: 0.08) {
   background: linear-gradient(
     145deg,
@@ -32,16 +32,81 @@ $transition-fast:   all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
   p {
     color: var(--text-color);
-    span { color: var(--main-color); }
+    span {
+      color: var(--main-color);
+    }
   }
 }
 
-/* Grilla base (escritorio) */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);   // dos columnas por defecto
-  gap: 4rem 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
   margin-top: 2rem;
+  align-items: start; // Alinea las cards al inicio para evitar estiramientos
+
+  &:has(.project-card:only-child) {
+    grid-template-columns: 1fr;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    
+    .project-card {
+      max-width: 600px;
+      width: 100%;
+    }
+  }
+
+  &:has(.project-card:nth-child(2):last-child) {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: none;
+  }
+
+  &:has(.project-card:nth-child(3):last-child) {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: none;
+    
+    .project-card:nth-child(3) {
+      grid-column: 1 / -1;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  }
+
+  &:has(.project-card:nth-child(4)) {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: none;
+    
+    .project-card:nth-child(3) {
+      grid-column: auto;
+      max-width: none;
+      margin: 0;
+    }
+  }
+
+  &:has(.project-card:nth-child(5):last-child) {
+    grid-template-columns: repeat(2, 1fr);
+    
+    .project-card:nth-child(5) {
+      grid-column: 1 / -1;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  }
+
+  &:has(.project-card:nth-child(6)) {
+    grid-template-columns: repeat(2, 1fr);
+    
+    .project-card:nth-child(5) {
+      grid-column: auto;
+      max-width: none;
+      margin: 0;
+    }
+  }
+
+  > .project-card {
+    width: 100%;
+  }
 }
 
 /* Tarjeta individual */
@@ -54,10 +119,17 @@ $transition-fast:   all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  height: auto;         // antes: 100%, ahora se adapta al contenido
   box-sizing: border-box;
+  min-height: 500px;
+  height: fit-content; // Permite que las cards se ajusten a su contenido
 
-
+  &:hover {
+    @include hover-lift(-12px, 1.03);
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.15),
+      0 8px 16px rgba(0, 0, 0, 0.1),
+      0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
 
   // Efecto de borde brillante al hover
   &::before {
@@ -79,11 +151,13 @@ $transition-fast:   all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     pointer-events: none;
     z-index: 0;
 
-    .project-card:hover & { opacity: 1; }
+    .project-card:hover & {
+      opacity: 1;
+    }
   }
 }
 
-/* Interruptor de vista */
+/* Resto del código... */
 .view-toggle {
   display: flex;
   gap: 0.5rem;
@@ -142,9 +216,7 @@ $transition-fast:   all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   margin-bottom: 1.25rem;
   min-height: 20px;
   flex-shrink: 0;
-  box-shadow:
-    0 8px 25px rgba(0, 0, 0, 0.2),
-    0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2), 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .image-container {
@@ -153,7 +225,9 @@ $transition-fast:   all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 0;
   transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 
-  &.active { opacity: 1; }
+  &.active {
+    opacity: 1;
+  }
 
   img {
     width: 100%;
@@ -161,7 +235,9 @@ $transition-fast:   all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     object-fit: cover;
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 
-    .project-card:hover & { transform: scale(1.05); }
+    .project-card:hover & {
+      transform: scale(1.05);
+    }
   }
 }
 
@@ -179,7 +255,9 @@ $transition-fast:   all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
   z-index: 0;
 
-  .project-card:hover & { opacity: 1; }
+  .project-card:hover & {
+    opacity: 1;
+  }
 }
 
 /* Contenido interno */
@@ -193,8 +271,9 @@ $transition-fast:   all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
 .project-header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: 1rem;
   margin-bottom: 1rem;
 }
@@ -354,7 +433,9 @@ $transition-fast:   all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     pointer-events: none;
     z-index: 0;
 
-    .link-button:hover & { left: 100%; }
+    .link-button:hover & {
+      left: 100%;
+    }
   }
 
   &:focus-visible {
@@ -364,36 +445,123 @@ $transition-fast:   all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
-/* ----- Responsive ----- */
+/* ----- Responsive Mejorado ----- */
 
-/* Tablets: hasta 1024px */
-@media (max-width: 1024px) {
+/* Desktop grande: más de 1200px */
+@media (min-width: 1201px) {
   .projects-grid {
-    grid-template-columns: 1fr 1fr;   // mantenemos 2 columnas
-    gap: 2rem 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 2.5rem;
+  }
+}
+
+/* Desktop: 1025px - 1200px */
+@media (max-width: 1200px) and (min-width: 1025px) {
+  .projects-grid {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+  }
+}
+
+/* Tablets: 769px - 1024px */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .projects-container {
+    padding: 1.5rem 1rem;
+  }
+
+  .projects-grid {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
   }
 
   .project-card {
     padding: 1.5rem;
+    min-height: 450px;
   }
 }
 
-/* Móviles: hasta 768px */
-@media (max-width: 768px) {
+/* Tablets pequeñas: 481px - 768px */
+@media (max-width: 768px) and (min-width: 481px) {
   .projects-container {
-    width: 80%;        // usa todo el ancho disponible
-    padding: 1rem 0.75rem;
+    width: 90%;
+    padding: 1.25rem 0.75rem;
   }
 
   .projects-grid {
-    grid-template-columns: 1fr;   // una sola columna
-    gap: 1.5rem;                  // espacio uniforme entre tarjetas
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+  }
+
+  .project-card {
+    padding: 1.25rem;
+    min-height: 400px;
+    
+    .project-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .project-links {
+      flex-direction: column;
+      gap: 0.5rem;
+      
+      .link-button {
+        justify-content: center;
+        width: 100%;
+      }
+    }
+  }
+}
+
+/* Móviles: hasta 480px */
+@media (max-width: 480px) {
+  .projects-container {
+    width: 95%;
+    padding: 1rem 0.5rem;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
     margin-top: 1rem;
   }
 
   .project-card {
-    padding: 1.25rem 1rem;
-    margin: 0;                    // sin márgenes extra
+    padding: 1rem;
+    min-height: 350px;
+    
+    .project-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .project-links {
+      flex-direction: column;
+      gap: 0.5rem;
+      
+      .link-button {
+        justify-content: center;
+        width: 100%;
+      }
+    }
+  }
+}
+
+/* ----- Responsive Mejorado ----- */
+
+/* Simplificando responsive para mantener la lógica de máximo 2 columnas */
+@media (max-width: 768px) {
+  .projects-grid {
+    grid-template-columns: 1fr !important;
+    
+    .project-card {
+      grid-column: auto !important;
+      max-width: none !important;
+      margin: 0 !important;
+    }
   }
 }
 

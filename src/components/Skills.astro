@@ -22,24 +22,20 @@ import VercelIcon from "../components/icons/tech/VercelIcon.astro";
 const skills = [
   // Frameworks
   { name: "Astro", key: "astro", category: "Framework" },
-  { name: "Laravel", key: "laravel", category: "Framework Backend" },
+  { name: "Laravel", key: "laravel", category: "Framework Backend" }, // Librerías
 
-  // Librerías
   { name: "React", key: "react", category: "Library" },
   { name: "Tailwind CSS", key: "tailwind", category: "Library" },
-  { name: "Bootstrap", key: "bootstrap", category: "Library" },
+  { name: "Bootstrap", key: "bootstrap", category: "Library" }, // Lenguajes
 
-  // Lenguajes
   { name: "JavaScript", key: "javascript", category: "Lenguaje" },
   { name: "TypeScript", key: "typescript", category: "Lenguaje" },
   { name: "PHP", key: "php", category: "Lenguaje" },
   { name: "HTML5", key: "html5", category: "Lenguaje" },
-  { name: "CSS3", key: "css3", category: "Lenguaje" },
+  { name: "CSS3", key: "css3", category: "Lenguaje" }, // Bases de Datos
 
-  // Bases de Datos
-  { name: "MySQL", key: "mysql", category: "Base de Datos" },
+  { name: "MySQL", key: "mysql", category: "Base de Datos" }, // Herramientas
 
-  // Herramientas
   { name: "Visual Studio Code", key: "vscode", category: "Herramienta" },
   { name: "Git", key: "git", category: "Herramienta" },
   { name: "GitHub", key: "github", category: "Herramienta" },
@@ -48,13 +44,13 @@ const skills = [
 ];
 
 const categories = [
-  { key: "Todos", icon: "🎯", label: "Todos" },
-  { key: "Framework", icon: "⚡", label: "Frameworks" },
-  { key: "Framework Backend", icon: "⚙️", label: "Frameworks Backend" },
-  { key: "Library", icon: "📚", label: "Librerías" },
-  { key: "Lenguaje", icon: "💻", label: "Lenguajes" },
-  { key: "Base de Datos", icon: "🗄️", label: "Bases de Datos" },
-  { key: "Herramienta", icon: "🛠️", label: "Herramientas" },
+  { key: "Todos", label: "Todos" },
+  { key: "Framework", label: "Frameworks" },
+  { key: "Framework Backend", label: "Frameworks Backend" },
+  { key: "Library", label: "Librerías" },
+  { key: "Lenguaje", label: "Lenguajes" },
+  { key: "Base de Datos", label: "Bases de Datos" },
+  { key: "Herramienta", label: "Herramientas" },
 ];
 
 const iconComponents = {
@@ -93,7 +89,6 @@ const totalPages = Math.ceil(skills.length / itemsPerPage);
             data-filter={cat.key}
             class={`filter-btn ${cat.key === "Todos" ? "active" : ""}`}
           >
-            <span class="filter-icon">{cat.icon}</span>
             {cat.label}
           </button>
         ))
@@ -109,15 +104,14 @@ const totalPages = Math.ceil(skills.length / itemsPerPage);
           return (
             <div class="skill-card" data-category={skill.category}>
               <div class="skill-logo">
-                               {" "}
                 {IconComponent ? (
                   <IconComponent size={50} />
                 ) : (
                   <div class="placeholder-icon">?</div>
                 )}
               </div>
-              <div class="skill-info">
-                <span class="skill-name">{skill.name}</span>
+              <div class="skill-info"><span class="skill-name">{skill.name}</span>
+
               </div>
             </div>
           );
