@@ -13,11 +13,15 @@ import LinkedinIcon from "../components/icons/LinkedinIcon.astro";
   <div class="hero-text">
     <h1 class="highlight">John Castro</h1>
     
-    <h2 class="subtitle">Desarrollador Web Fullstack</h2>
+    <h2 class="subtitle">
+      <span id="typing"></span><span class="cursor"></span>
+    </h2>
+
     <p>
       Apasionado por la tecnología, disfruto aprender constantemente y me motiva
       enfrentar cada reto con dedicación y enfoque para crecer como profesional.
     </p>
+
     <div class="hero-actions mobile-only">
       <a href="https://www.linkedin.com/in/johncastrod" class="action-btn" aria-label="LinkedIn">
         <LinkedinIcon color="var(--main-color)" size={26} />
@@ -52,4 +56,62 @@ import LinkedinIcon from "../components/icons/LinkedinIcon.astro";
   </div>
 </section>
 
-<script src="/scripts/particles.js" defer></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const text = "Desarrollador Web Fullstack";
+    const typingElement = document.getElementById("typing");
+
+    let i = 0;
+    let deleting = false;
+
+    function typeEffect() {
+      if (!deleting) {
+        typingElement.textContent = text.substring(0, i + 1);
+        i++;
+
+        if (i === text.length) {
+          // espera aleatoria (mínimo 5s, máximo 8s)
+          const wait = Math.floor(Math.random() * 3000) + 5000;
+          setTimeout(() => {
+            deleting = true;
+            typeEffect();
+          }, wait);
+          return;
+        }
+      } else {
+        typingElement.textContent = text.substring(0, i - 1);
+        i--;
+
+        if (i === 0) {
+          deleting = false;
+        }
+      }
+
+      setTimeout(typeEffect, deleting ? 60 : 100); // borrar más rápido que escribir
+    }
+
+    typeEffect();
+  });
+</script>
+
+<style>
+  .subtitle {
+    margin-top: 0.2rem;
+  }
+
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.2em;          /* un poco más largo */
+  background: var(--main-color);
+  margin-left: 3px;
+  animation: blink 0.8s infinite;
+  vertical-align: -0.15em; /* 👈 baja el cursor ligeramente */
+}
+
+
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    50.01%, 100% { opacity: 0; }
+  }
+</style>
