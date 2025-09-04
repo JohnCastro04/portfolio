@@ -163,7 +163,7 @@ h1 {
 }
 
 /* Mostrar solo en móvil */
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
   .hero-actions.mobile-only {
     display: flex;
     gap: 1rem;
@@ -189,14 +189,14 @@ h1 {
 }
 
 /* Asegurar que los botones se oculten en escritorio */
-@media (max-width: 769px) {
+@media (max-width: 1001px) {
   .hero-actions {
     display: none;
   }
 }
 
 /* ===============  RESPONSIVE  =============== */
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
   .hero {
     flex-direction: column;
     gap: 2rem;
