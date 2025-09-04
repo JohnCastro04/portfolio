@@ -7,6 +7,7 @@ import ReactIcon from "../components/icons/tech/ReactIcon.astro";
 import TailwindIcon from "../components/icons/tech/TailwindIcon.astro";
 import BootstrapIcon from "../components/icons/tech/BootstrapIcon.astro";
 import LaravelIcon from "../components/icons/tech/LaravelIcon.astro";
+import DjangoIcon from "../components/icons/tech/DjangoIcon.astro";
 import JavaScriptIcon from "../components/icons/tech/JavaScriptIcon.astro";
 import TypeScriptIcon from "../components/icons/tech/TypeScriptIcon.astro";
 import PHPIcon from "../components/icons/tech/PHPIcon.astro";
@@ -22,8 +23,10 @@ import VercelIcon from "../components/icons/tech/VercelIcon.astro";
 const skills = [
   // Frameworks
   { name: "Astro", key: "astro", category: "Framework" },
-  { name: "Laravel", key: "laravel", category: "Framework Backend" }, // Librerías
-
+  { name: "Laravel", key: "laravel", category: "Framework Backend" }, 
+  { name: "Django", key: "django", category: "Framework Backend" },
+  
+  // Librerías
   { name: "React", key: "react", category: "Library" },
   { name: "Tailwind CSS", key: "tailwind", category: "Library" },
   { name: "Bootstrap", key: "bootstrap", category: "Library" }, // Lenguajes
@@ -59,6 +62,7 @@ const iconComponents = {
   tailwind: TailwindIcon,
   bootstrap: BootstrapIcon,
   laravel: LaravelIcon,
+  django: DjangoIcon,
   javascript: JavaScriptIcon,
   typescript: TypeScriptIcon,
   php: PHPIcon,
