@@ -14,7 +14,7 @@ import LinkedinIcon from "../components/icons/LinkedinIcon.astro";
     <h1 class="highlight">John Castro</h1>
     
     <h2 class="subtitle">
-      <span id="typing"></span><span class="cursor"></span>
+      <span id="obfuscated-text" class="obfuscated-text" data-text="Desarrollador Web Full-Stack">Desarrollador Web Full-Stack</span>
     </h2>
 
     <p>
@@ -58,39 +58,73 @@ import LinkedinIcon from "../components/icons/LinkedinIcon.astro";
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const text = "Desarrollador Web Full-Stack";
-    const typingElement = document.getElementById("typing");
-
-    let i = 0;
-    let deleting = false;
-
-    function typeEffect() {
-      if (!deleting) {
-        typingElement.textContent = text.substring(0, i + 1);
-        i++;
-
-        if (i === text.length) {
-          // espera aleatoria (mínimo 5s, máximo 8s)
-          const wait = Math.floor(Math.random() * 3000) + 5000;
-          setTimeout(() => {
-            deleting = true;
-            typeEffect();
-          }, wait);
-          return;
-        }
-      } else {
-        typingElement.textContent = text.substring(0, i - 1);
-        i--;
-
-        if (i === 0) {
-          deleting = false;
+    const obfuscatedElement = document.getElementById("obfuscated-text");
+    const originalText = obfuscatedElement.dataset.text;
+    
+    const obfuscatedChars = "!@#$%^&*()_+-=[]{}|;:,.<>?~`ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789¡¿¢£¥§©®°±²³µ¶¼½¾×÷ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω";
+    
+    let animationId;
+    let isAnimating = false;
+    
+    function getRandomChar() {
+      return obfuscatedChars[Math.floor(Math.random() * obfuscatedChars.length)];
+    }
+    
+    function obfuscateText() {
+      if (!isAnimating) return;
+      
+      let obfuscated = "";
+      for (let i = 0; i < originalText.length; i++) {
+        if (originalText[i] === " ") {
+          obfuscated += " ";
+        } else {
+          obfuscated += getRandomChar();
         }
       }
-
-      setTimeout(typeEffect, deleting ? 60 : 100); // borrar más rápido que escribir
+      
+      obfuscatedElement.textContent = obfuscated;
+      animationId = requestAnimationFrame(obfuscateText);
     }
-
-    typeEffect();
+    
+    function startObfuscation() {
+      isAnimating = true;
+      obfuscateText();
+    }
+    
+    function stopObfuscation() {
+      isAnimating = false;
+      cancelAnimationFrame(animationId);
+      
+      // Animación de "resolución" del texto letra por letra
+      let resolvedText = "";
+      let currentIndex = 0;
+      
+      const resolveInterval = setInterval(() => {
+        if (currentIndex < originalText.length) {
+          resolvedText += originalText[currentIndex];
+          
+          // Completar el resto con caracteres obfuscados
+          let remainingObfuscated = "";
+          for (let i = currentIndex + 1; i < originalText.length; i++) {
+            if (originalText[i] === " ") {
+              remainingObfuscated += " ";
+            } else {
+              remainingObfuscated += getRandomChar();
+            }
+          }
+          
+          obfuscatedElement.textContent = resolvedText + remainingObfuscated;
+          currentIndex++;
+        } else {
+          clearInterval(resolveInterval);
+          obfuscatedElement.textContent = originalText;
+        }
+      }, 50); // Resolver una letra cada 50ms
+    }
+    
+    // Event listeners para hover
+    obfuscatedElement.addEventListener("mouseenter", startObfuscation);
+    obfuscatedElement.addEventListener("mouseleave", stopObfuscation);
   });
 </script>
 
@@ -99,19 +133,24 @@ import LinkedinIcon from "../components/icons/LinkedinIcon.astro";
     margin-top: 0.2rem;
   }
 
-.cursor {
+.obfuscated-text {
+  cursor: pointer;
+  transition: all 0.3s ease;
   display: inline-block;
-  width: 2px;
-  height: 1.2em;          /* un poco más largo */
-  background: var(--main-color);
-  margin-left: 3px;
-  animation: blink 0.8s infinite;
-  vertical-align: -0.15em; /* 👈 baja el cursor ligeramente */
+  color: var(--text-color-sub);
+  position: relative;
+}
+.obfuscated-text:hover::before {
+  opacity: 1;
+  animation: shimmer 2s ease-in-out infinite;
 }
 
-
-  @keyframes blink {
-    0%, 50% { opacity: 1; }
-    50.01%, 100% { opacity: 0; }
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
   }
+  100% {
+    background-position: 200% 0;
+  }
+}
 </style>
