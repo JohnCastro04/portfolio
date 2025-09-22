@@ -5,7 +5,10 @@ body {
   font-family: var(--main-font);
   gap: 1;
   background: #21283a;
-  
+  ::selection {
+    background: var(--main-color);
+    color: var(--bg-color);
+  }
 }
 
 p {
