@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "@fontsource-variable/lexend": "^5.2.9",
-    "astro": "^5.13.3"
+    "astro": "^5.13.3",
+    "gsap": "^3.13.0"
   },
   "devDependencies": {
     "sass": "^1.91.0"

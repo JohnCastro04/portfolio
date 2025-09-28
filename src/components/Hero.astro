@@ -14,7 +14,7 @@ import LinkedinIcon from "../components/icons/LinkedinIcon.astro";
     <h1 class="highlight">John Castro</h1>
     
     <h2 class="subtitle">
-      <span id="obfuscated-text" class="obfuscated-text" data-text="Desarrollador Web Full-Stack">Desarrollador Web Full-Stack</span>
+      <span id="animated-subtitle" class="animated-subtitle">Desarrollador Web Full-Stack</span>
     </h2>
 
     <p>
@@ -36,7 +36,7 @@ import LinkedinIcon from "../components/icons/LinkedinIcon.astro";
       </a>
 
       <a
-        href="public/John Castro - Curriculum vitae.pdf"
+        href="https://raw.githubusercontent.com/JohnCastro04/portfolio/master/public/John%20Castro%20-%20Curriculum%20vitae.pdf"
         download
         class="action-btn primary"
         aria-label="Descargar CV"
@@ -57,75 +57,123 @@ import LinkedinIcon from "../components/icons/LinkedinIcon.astro";
 </section>
 
 <script>
+  import { gsap } from 'gsap';
+
   document.addEventListener("DOMContentLoaded", () => {
-    // ============= ANIMACIÓN DEL TEXTO OBFUSCADO =============
-    const obfuscatedElement = document.getElementById("obfuscated-text");
-    const originalText = obfuscatedElement.dataset.text;
+    const subtitleElement = document.getElementById("animated-subtitle");
     
-    const obfuscatedChars = "!@#$%^&*()_+-=[]{}|;:,.<>?~`ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789¡¿¢£¥§©®°±²³µ¶¼½¾×÷ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω";
-    
-    let animationId;
-    let isAnimating = false;
-    
-    function getRandomChar() {
-      return obfuscatedChars[Math.floor(Math.random() * obfuscatedChars.length)];
-    }
-    
-    function obfuscateText() {
-      if (!isAnimating) return;
+    // Función para dividir texto en elementos span para animación
+    const splitTextIntoChars = (element) => {
+      const text = element.textContent;
+      element.innerHTML = '';
       
-      let obfuscated = "";
-      for (let i = 0; i < originalText.length; i++) {
-        if (originalText[i] === " ") {
-          obfuscated += " ";
-        } else {
-          obfuscated += getRandomChar();
-        }
-      }
+      [...text].forEach(char => {
+        const span = document.createElement('span');
+        span.textContent = char === ' ' ? '\u00A0' : char;
+        span.className = 'char';
+        element.appendChild(span);
+      });
       
-      obfuscatedElement.textContent = obfuscated;
-      animationId = requestAnimationFrame(obfuscateText);
-    }
+      return element.querySelectorAll('.char');
+    };
     
-    function startObfuscation() {
-      isAnimating = true;
-      obfuscateText();
-    }
+    // Dividir el subtítulo en caracteres
+    const chars = splitTextIntoChars(subtitleElement);
     
-    function stopObfuscation() {
-      isAnimating = false;
-      cancelAnimationFrame(animationId);
+    // Animación inicial del subtítulo
+    gsap.set(chars, {
+      opacity: 0,
+      y: 20,
+      scale: 0.8
+    });
+    
+    // Timeline para la animación del subtítulo
+    const subtitleTl = gsap.timeline({ delay: 0.8 });
+    
+    subtitleTl.to(chars, {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      duration: 0.6,
+      stagger: {
+        amount: 0.8,
+        from: "start"
+      },
+      ease: "back.out(1.7)"
+    });
+    
+    // Animación sutil continua (efecto de respiración)
+    gsap.to(subtitleElement, {
+      scale: 1.02,
+      duration: 3,
+      repeat: -1,
+      yoyo: true,
+      ease: "power2.inOut",
+      delay: 2
+    });
+    
+    // ============= ANIMACIONES DE ENTRADA GSAP =============
+    
+    // Animación principal del título
+    gsap.from(".hero-text h1", {
+      opacity: 0,
+      y: 50,
+      scale: 0.9,
+      duration: 1,
+      ease: "power3.out",
+      delay: 0.2
+    });
+    
+    // Animación del párrafo
+    gsap.from(".hero-text p", {
+      opacity: 0,
+      y: 30,
+      duration: 0.8,
+      delay: 2,
+      ease: "power2.out"
+    });
+    
+    // Animación de los botones de acción
+    gsap.from(".hero-actions .action-btn", {
+      opacity: 0,
+      y: 30,
+      scale: 0.8,
+      duration: 0.6,
+      delay: 2.5,
+      stagger: 0.1,
+      ease: "back.out(2)"
+    });
+    
+    // Animación de la imagen con efecto parallax
+    gsap.from(".hero-image img", {
+      opacity: 0,
+      scale: 1.1,
+      y: 30,
+      duration: 1.2,
+      delay: 0.5,
+      ease: "power2.out"
+    });
+    
+    // Micro-interacciones con hover en los botones
+    document.querySelectorAll('.action-btn').forEach(btn => {
+      btn.addEventListener('mouseenter', () => {
+        gsap.to(btn, {
+          scale: 1.1,
+          y: -3,
+          duration: 0.3,
+          ease: "back.out(2)"
+        });
+      });
       
-      // Animación de "resolución" del texto letra por letra
-      let resolvedText = "";
-      let currentIndex = 0;
-      
-      const resolveInterval = setInterval(() => {
-        if (currentIndex < originalText.length) {
-          resolvedText += originalText[currentIndex];
-          
-          // Completar el resto con caracteres obfuscados
-          let remainingObfuscated = "";
-          for (let i = currentIndex + 1; i < originalText.length; i++) {
-            if (originalText[i] === " ") {
-              remainingObfuscated += " ";
-            } else {
-              remainingObfuscated += getRandomChar();
-            }
-          }
-          
-          obfuscatedElement.textContent = resolvedText + remainingObfuscated;
-          currentIndex++;
-        } else {
-          clearInterval(resolveInterval);
-          obfuscatedElement.textContent = originalText;
-        }
-      }, 50); // Resolver una letra cada 50ms
-    }
-    
-    // Event listeners para hover
-    obfuscatedElement.addEventListener("mouseenter", startObfuscation);
-    obfuscatedElement.addEventListener("mouseleave", stopObfuscation);
+      btn.addEventListener('mouseleave', () => {
+        gsap.to(btn, {
+          scale: 1,
+          y: 0,
+          duration: 0.3,
+          ease: "back.out(2)"
+        });
+      });
+    });
 
     // ============= ANIMACIÓN DE PARTÍCULAS =============
     const container = document.getElementById("particles");
@@ -154,24 +202,60 @@ import LinkedinIcon from "../components/icons/LinkedinIcon.astro";
     margin-top: 0.2rem;
   }
 
-.obfuscated-text {
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: inline-block;
-  color: var(--text-color-sub);
-  position: relative;
-}
-.obfuscated-text:hover::before {
-  opacity: 1;
-  animation: shimmer 2s ease-in-out infinite;
-}
+  .animated-subtitle {
+    display: inline-block;
+    color: var(--text-color-sub);
+    position: relative;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transform-origin: center;
+  }
+  
+  /* Estilo para los caracteres individuales */
+  .char {
+    display: inline-block;
+    will-change: transform, opacity;
+  }
+  
+  /* Mejoras generales para el hero */
+  .hero-text h1 {
+    transform: translateZ(0); /* Optimización para GPU */
+    will-change: transform, opacity;
+  }
+  
+  .hero-text p {
+    transform: translateZ(0);
+    will-change: transform, opacity;
+  }
+  
+  .hero-actions .action-btn {
+    transform: translateZ(0);
+    will-change: transform, opacity;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .hero-actions .action-btn:hover {
+    box-shadow: 0 8px 25px rgba(var(--main-color-rgb), 0.15);
+  }
+  
+  .hero-image img {
+    transform: translateZ(0);
+    will-change: transform, opacity;
+  }
 
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
+  /* El shimmer y los estilos de hover ya no son necesarios
+  .obfuscated-text:hover::before {
+    opacity: 1;
+    animation: shimmer 2s ease-in-out infinite;
   }
-  100% {
-    background-position: 200% 0;
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
   }
-}
+  */
 </style>
